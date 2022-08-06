@@ -3,8 +3,9 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { REACT_APP_API_URL } from "../utils/constants"
 import { CardType } from "../types/CardsType"
+import { observer } from "mobx-react-lite"
 
-const CardPage = () => {
+const CardPage = observer(() => {
     const {id} = useParams()
     const [card,setCard] = useState({} as CardType)
     useEffect(() => {
@@ -12,7 +13,7 @@ const CardPage = () => {
         .then(res => {
             setCard(res.data.card)
         })
-    }, [])
+    }, [id])
     return (
         <div className="card-page">
             <p>{card.name}</p>
@@ -21,6 +22,6 @@ const CardPage = () => {
             </div>
         </div>
     )
-}
+})
 
 export default CardPage

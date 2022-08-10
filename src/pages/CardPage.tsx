@@ -18,7 +18,7 @@ const CardPage = observer(() => {
         <div className="card-page">
             <p>{card.name}</p>
             <div className="card-description">
-                {card.desc}
+                {card.meaning_up}
             </div>
         </div>
     )

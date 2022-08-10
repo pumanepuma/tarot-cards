@@ -1,0 +1,39 @@
+.App{
+    height: 100%;
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1{
+    font-style: italic;
+}
+
+a{
+    color:white;
+    text-decoration: none;
+}
+
+a:hover{
+    color: #FCA311;
+}
+
+.links{
+    width:100%;
+    font-size: 18px;
+}
+
+button{
+    background: transparent;
+    color: white;
+    outline:none;
+    border: none;
+    font-family: "Playfair Display", serif;
+    font-style:italic;
+}
+
+.card-item{
+    background: transparent;
+    border: none;
+}

@@ -1,6 +1,7 @@
 import axios from "axios"
 import { observer } from "mobx-react-lite"
 import { useEffect, useState } from "react"
+import { Button, Container,Row } from "react-bootstrap"
 import TarotStore from "../store/TarotStore"
 import { CardsListProps, CardType } from "../types/CardsType"
 import { REACT_APP_API_URL } from "../utils/constants"
@@ -24,10 +25,19 @@ const CardsList: React.FC<CardsListProps> = observer(({ days }) => {
     }, [cards])
 
     return (
-        <div className="cards-list">
-            {TarotStore.cards.map(el => <CardItem key={el.name_short} card={el} />)}
-            <button onClick={getCards}>get new cards</button>
-        </div>
+        <Container className="d-flex flex-column justify-content-evenly pt-3">
+           <Row className="d-flex flex-row justify-content-evenly pt-3">
+            
+           {
+                cards.map(card => <CardItem card={card} />)
+            }
+           </Row>
+           <Row className="d-flex flex-row justify-content-evenly pt-3">
+            <Button style={{background:'transparent',border:'none',width:'30%'}} onClick={getCards}>
+                Get new Cards
+            </Button>
+           </Row>
+        </Container>
     )
 })
 

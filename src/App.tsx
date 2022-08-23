@@ -5,8 +5,11 @@ import WeeklyCards from './pages/WeeklyCards';
 import CardPage from './pages/CardPage';
 import MyAlignment from './pages/MyAlignment';
 import Header from './components/Header';
+import { observer } from 'mobx-react-lite';
+import UserStore from './store/UserStore';
+import AuthPage from './pages/AuthPage';
 
-function App() {
+const App = observer(() => {
   return (
     <div className='App d-flex flex-column justify-content-center'>
       <Header/>
@@ -14,11 +17,12 @@ function App() {
         <Route path='/' element={<Home/>}/>
         <Route path='/weekly' element={<WeeklyCards/>}/>
         <Route path='/my' element={<MyAlignment/>}/>
-        <Route path='/card/:id' element={<CardPage />}/>
+        <Route path='/cards/:id' element={<CardPage />}/>
+        {!UserStore.isAuth && <Route path='/auth'element={<AuthPage />}/>}
         <Route path='*' element={<Home />}/>
       </Routes>
     </div>
   )
-}
+})
 
 export default App;

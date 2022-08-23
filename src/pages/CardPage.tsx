@@ -1,26 +1,25 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { REACT_APP_API_URL } from "../utils/constants"
-import { CardType } from "../types/CardsType"
 import { observer } from "mobx-react-lite"
+import { useEffect, useState } from "react"
+import { Button, Container, Image } from "react-bootstrap"
+import { useNavigate, useParams } from "react-router-dom"
+import { getCard } from "../API/TarotAPI"
+import { TCard } from "../models/Card"
 
 const CardPage = observer(() => {
     const {id} = useParams()
-    const [card,setCard] = useState({} as CardType)
+    const [card,setCard] = useState({} as TCard)
     useEffect(() => {
-        axios.get(`${REACT_APP_API_URL}/${id}`)
-        .then(res => {
-            setCard(res.data.card)
-        })
-    }, [id])
-    return (
-        <div className="card-page">
-            <p>{card.name}</p>
-            <div className="card-description">
-                {card.meaning_up}
-            </div>
-        </div>
+        console.log(id)
+        getCard(id!).then(data => setCard(data))
+    },[])
+    const navigate = useNavigate()
+    return(
+        <Container>
+            <h1>{card.rus_name}</h1>
+            <Image src={'/assets'+card.img} alt={card.id} width='300px' className="m-3"/>
+            <p>{card.meaning_day}</p>
+            <Button onClick={() => navigate(-1)}>Назад</Button>
+        </Container>
     )
 })
 

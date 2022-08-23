@@ -1,23 +1,32 @@
 import axios from "axios"
-import { useEffect } from "react"
+import { observer } from "mobx-react-lite"
+import { useEffect, useState } from "react"
 import { Container } from "react-bootstrap"
+import { getAll } from "../API/TarotAPI"
+import CardsList from "../components/CardsList"
 import TarotStore from "../store/TarotStore"
-import { REACT_APP_API_URL } from "../utils/constants"
 
-const Home = () => {
+const Home = observer(() => {
+    const [searchQuery,setSearchQuery] = useState('')
+    const [isLoading,setIsLoading] = useState(true)
     useEffect(() => {
-        if(!TarotStore.allCards) getAllCards()
-    }, [])
-    const getAllCards = () => {
-        axios.get(`${REACT_APP_API_URL}`)
-            .then(res => TarotStore.setAllCards(res.data.cards))
-    }
-
+        getAll().then(data => TarotStore.setAllCards(data))
+        .then(() => setIsLoading(false))
+    },[])
+    const searchedCards = searchQuery ? 
+    TarotStore.allCards.filter(card => card.rus_name.toLowerCase().includes(searchQuery.toLowerCase()))
+    : TarotStore.allCards
     return (
-        <Container className='pt-3'>
+        <Container>
             <h1>Home</h1>
+            <input type='text' placeholder='Поиск...' 
+            value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/>
+            {
+                isLoading ? <h1>Загрузка...</h1>
+                : <CardsList cards={searchedCards}/>
+            }
         </Container>
     )
-}
+})
 
 export default Home

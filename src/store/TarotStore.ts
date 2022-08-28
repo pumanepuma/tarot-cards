@@ -1,20 +1,49 @@
 import { makeAutoObservable } from "mobx"
-import { TCard } from "../models/Card"
+import { TAlignment } from "../models/Alignment"
+import { TCard } from '../models/Card'
 
-let allSaved : string | null = localStorage.getItem('all')
-let allInit : Array<TCard> = []
-if(allSaved) allInit = JSON.parse(allSaved)
-
+const savedCards = localStorage.getItem('allCards')
+let initCards = Array<TCard>()
+if(savedCards){
+  initCards = JSON.parse(savedCards)
+}
+const savedAlignment = localStorage.getItem('myAlignment')
 class TarotStore{
-    allCards = allInit
-    constuctor(){
-       makeAutoObservable(this) 
-    }
+  allCards = initCards
+  myAlignment = Array<TCard>()
+  alignmentName = ''
+  constructor(){
+    makeAutoObservable(this)
+  }
 
-    setAllCards(cards: Array<TCard>){
-        this.allCards = cards
-        localStorage.setItem('all',JSON.stringify(this.allCards))
-    }
+  setAlignmentName(name:string){
+    this.alignmentName = name
+  }
+
+  setAllCards(cards:TCard[]){
+    this.allCards = cards
+    localStorage.setItem('allCards',JSON.stringify(this.allCards))
+  }
+
+  addCard(card:TCard){
+    this.myAlignment.push(card)
+    localStorage.setItem('myAlignment',JSON.stringify(this.myAlignment))
+  }
+
+  deleteCard(card:TCard){
+    this.myAlignment = this.myAlignment.filter(el => el.id !== card.id)
+    localStorage.setItem('myAlignment',JSON.stringify(this.myAlignment))
+  }
+
+  setMyAlgnment(cards:TCard[]){
+    this.myAlignment = cards
+  }
+
+  get cardsNames(){
+    return this.allCards.map(card => {
+      return{label:card.rus_name,value:card.id}
+    })
+  }
 }
 
 export default new TarotStore()

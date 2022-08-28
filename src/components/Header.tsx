@@ -1,33 +1,38 @@
 import { observer } from "mobx-react-lite"
-import { Container, Nav, Navbar,Image, Button } from "react-bootstrap"
-import { NavLink } from "react-router-dom"
-import logo from '../images/logo.svg'
+import { NavLink, useNavigate } from "react-router-dom"
 import { TUser } from "../models/User"
+import TarotStore from "../store/TarotStore"
 import UserStore from "../store/UserStore"
 
 const Header = observer(() => {
-    const logout = () => {
-        UserStore.setIsAuth(false)
-        UserStore.setUser({} as TUser)
-    }
-    return (
-        <Navbar bg='dark'>
-            <Container className=''>
-                <Nav className='d-flex flex-row justify-content-around align-items-center p-2 links'>
-                    <NavLink to='/'>
-                        <Image src={'/assets/images/logo.svg'} width='50px'/>
-                    </NavLink>
-                    <NavLink to='/weekly'>Alignments</NavLink>
-                    <NavLink to='/my'>My alignment</NavLink>
-                    {
-                        UserStore.isAuth ? <Button variant="dark" onClick={logout}>Выйти</Button>
-                        : <NavLink to='/auth'>Войти</NavLink>
-                    }
-                </Nav>
-            </Container>
-
-        </Navbar>
-    )
+  const navigate = useNavigate()
+  const logout = () => {
+    UserStore.setIsAuth(false)
+    UserStore.setUser({} as TUser)
+    navigate('/')
+  }
+  return (
+    <nav>
+      <div className="public-navs">
+        <NavLink to='/'>
+          <img src='/assets/images/logo.svg' alt='Главная' width='40px'/>
+        </NavLink>
+        <NavLink to='/week'>Недельный расклад</NavLink>
+      </div>
+      {
+        UserStore.isAuth ? 
+        <div className="auth-navs">
+          <NavLink to="/my">{UserStore.user.id}</NavLink>
+          <NavLink to="/create">Создать расклад</NavLink>
+          <button onClick={logout}>Выйти</button>
+        </div>
+        :
+        <div>
+          <NavLink to='/auth'>Войти</NavLink>
+        </div>
+      }
+    </nav>
+  )
 })
 
 export default Header

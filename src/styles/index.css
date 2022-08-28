@@ -1,6 +1,18 @@
-body{
+:root{
+  --main: #403f4c;
+  --highlight: #FCA311;
+  --dark: #2C2B3C;
+}
+
+body {
   font-family: "Playfair Display", serif;
-  background: #403f4c;
+  background: var(--main);
   color: white;
   margin: 0px;
+  height: 100vh;
+}
+
+#root{
+  height:100%;
+  text-align:center;
 }

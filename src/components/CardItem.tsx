@@ -1,20 +1,13 @@
-import { FC } from "react";
-import { Card,Image } from "react-bootstrap";
-import { CardItemProps, TCard } from "../models/Card";
+import { observer } from "mobx-react-lite"
+import { CardProps } from "../models/Card"
 
-const CardItem:FC<CardItemProps> = ({card}) => {
-    return (
-        <Card className='card-item' style={{ width: '10rem' }}>
-            <Card.Body>
-                <Card.Title>
-                    <a href={`/cards/${card.id}`}>
-                    {card.rus_name}
-                    </a>
-                </Card.Title>
-            </Card.Body>
-            <Card.Img src={'/assets'+card.img}/>
-        </Card>
-    )
-}
+const CardItem: React.FC<CardProps> = observer(({card}) => {
+  return (
+    <div className='card-item'>
+      <p><a href={`/cards/${card.id}`}>{card.rus_name}</a></p>
+      <img src={'/assets'+card.img} width='150px'/>
+    </div>
+  )
+})
 
 export default CardItem

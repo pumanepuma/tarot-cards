@@ -1,6 +1,6 @@
 import { SyntheticEvent } from "react"
 
-export type TCard = {
+export interface TCard  {
   id:	string,
   name:	string,
   value:	string,
@@ -11,7 +11,9 @@ export type TCard = {
   meaning_up:	string,
   meaning_rev:	string,
   img:string,
-  desc:	string
+  desc:	string,
+  description:TDesc[],
+  [key:string]:any
 }
 
 export type TEngCard = {
@@ -35,4 +37,35 @@ export interface ClickableCardProps extends CardProps{
 
 export type CardsListProps = {
   cards:TCard[]
+}
+
+export enum cards_meanings {
+  meaning_day ='DAY',
+  love = 'LOVE',
+  career = 'CAREER',
+  general = 'GENERAL'
+}
+
+export const descTypes = [
+  {
+    label:'Карта дня',
+    value: 'meaning_day'
+  },
+  {
+    label:'Любовь',
+    value: 'love'
+  },
+  {
+    label:'Карьера',
+    value: 'career'
+  },
+  {
+    label:'Общее',
+    value: 'general'
+  },
+]
+
+export type TDesc = {
+  label:string,
+  value:string
 }

@@ -39,6 +39,14 @@ class TarotStore{
     this.myAlignment = cards
   }
 
+  setCard(card:TCard){
+    this.allCards.filter(el => el.id === card.id)[0] = card
+  }
+
+  getCard(id:string){
+    return this.allCards.filter(el => el.id === id)[0]
+  }
+
   get cardsNames(){
     return this.allCards.map(card => {
       return{label:card.rus_name,value:card.id}

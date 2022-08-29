@@ -8,3 +8,8 @@ export interface InputProps{
 export interface FormProps extends InputProps{
   handleClick:(e:SyntheticEvent) => void
 }
+
+export interface ModalProps{
+  show:boolean,
+  setShow:(show:boolean) => void
+}

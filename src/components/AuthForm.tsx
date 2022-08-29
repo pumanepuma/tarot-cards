@@ -3,6 +3,7 @@ import { FC, SyntheticEvent, useState } from "react"
 import UserStore from "../store/UserStore"
 import {loginUser,signupUser} from '../API/UserAPI'
 import { useNavigate } from "react-router-dom"
+import { TUser } from "../models/User"
 
 interface AuthProps {
   isLogin: boolean
@@ -16,19 +17,15 @@ const AuthForm:FC<AuthProps> = observer(({isLogin}) => {
   
   const handleLogin = async (e:SyntheticEvent) => {
     e.preventDefault()
-    const newUser = {
-      login:login,
-      password:password,
-      id:login
-    }
-    const res = await loginUser(newUser)
-    if(res){
+    const res = await loginUser(login,password)
+    console.log(res)
+    if(res.status === 200){
       UserStore.setIsAuth(true)
-      UserStore.setUser(newUser)
+      UserStore.setUser(res.data)
       navigate('/')
     }
     else{
-      setErrorMessage('Неправильный пароль')
+      setErrorMessage('Неверный пароль')
     }
   }
   
@@ -37,7 +34,8 @@ const AuthForm:FC<AuthProps> = observer(({isLogin}) => {
     const newUser = {
       login:login,
       password:password,
-      id:login
+      id:login,
+      role:'user'
     }
     const res = await signupUser(newUser)
     if(res === 500){

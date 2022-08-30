@@ -12,6 +12,7 @@ import CreateAlignment from './pages/CreateAlignment';
 import NotFoundPage from './pages/NotFoundPage';
 import MyAlignments from './pages/MyAlignments';
 import AlignmentPage from './components/AlignmentPage';
+import AdminPage from './pages/AdminPage';
 
 const App = observer(() => {
   return (
@@ -26,6 +27,10 @@ const App = observer(() => {
           <Route path='/my/:id' element={<AlignmentPage/>} />
           <Route path='/my' element={<MyAlignments/>}/>
           <Route path='/cards/:id' element={<CardPage/>}/>
+          {
+            UserStore.user.role === 'admin' &&
+            <Route path='/admin' element={<AdminPage />}/> 
+          }
           <Route path='*' element={<NotFoundPage/>}/>
         </Routes>
         :

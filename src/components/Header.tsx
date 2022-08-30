@@ -24,6 +24,9 @@ const Header = observer(() => {
         <div className="auth-navs">
           <NavLink to="/my">{UserStore.user.id}</NavLink>
           <NavLink to="/create">Создать расклад</NavLink>
+          {
+            UserStore.user.role === 'admin' && <NavLink to='/admin'>Админка</NavLink>
+          }
           <button onClick={logout}>Выйти</button>
         </div>
         :

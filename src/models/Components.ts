@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, SyntheticEvent } from 'react'
+import { TDescription } from './Card'
 
 export interface InputProps{
   value: string | number,
@@ -12,4 +13,8 @@ export interface FormProps extends InputProps{
 export interface ModalProps{
   show:boolean,
   setShow:(show:boolean) => void
+}
+
+export interface DescriptionProps {
+  description:TDescription
 }

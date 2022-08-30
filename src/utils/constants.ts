@@ -13,7 +13,7 @@ export const backCard = {
 			meaning_rev: "",
 			desc: "",
 			rus_name: "",
-      img:"/images/back.jpg",
+      		img:"/images/back.jpg",
 			meaning_day: ""
 }
 

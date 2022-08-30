@@ -12,7 +12,7 @@ export interface TCard  {
   meaning_rev:	string,
   img:string,
   desc:	string,
-  description:TDesc[],
+  description:TDescription[],
   [key:string]:any
 }
 
@@ -65,7 +65,7 @@ export const descTypes = [
   },
 ]
 
-export type TDesc = {
-  label:string,
-  value:string
+export type TDescription = {
+  type:string,
+  description:string
 }

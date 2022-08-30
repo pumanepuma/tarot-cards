@@ -12,9 +12,11 @@ const MyAlignments = observer(() => {
         getUserAlignments(UserStore.user).then(data => setAlignments(data))
     },[])
     return (
-        <Container>
+        <Container className='mt-3'>
+            <h1>Сохраненные расклады</h1>
             {
-                alignments.map(alignment => <AlignmentItem alignment={alignment} key={alignment.id}/>)
+                alignments.length ? alignments.map(alignment => <AlignmentItem alignment={alignment} key={alignment.id}/>)
+                :<h3>Пока нет сохраненных раскладов</h3>
             }
         </Container>
     )
